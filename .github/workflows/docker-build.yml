@@ -38,10 +38,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # 需要多架构(arm64)时取消下面两行注释, 并在 build-push 里加 platforms。
-      # 注意: arm64 的 C++ 引擎编译在 QEMU 模拟下较慢。
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
+      # 启用 QEMU 以支持 arm64 构建。注意: arm64 的 C++ 引擎编译在 QEMU 模拟下较慢。
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -71,9 +70,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          # 只构建 amd64(最常见)。多架构改为:
-          #   platforms: linux/amd64,linux/arm64
-          platforms: linux/amd64
+          # 多架构: amd64(x86) + arm64(Apple Silicon / ARM 服务器)
+          platforms: linux/amd64,linux/arm64
           # GitHub Actions 内置缓存, 重复构建快很多
           cache-from: type=gha
           cache-to: type=gha,mode=max
