@@ -1,0 +1,17 @@
+# STalign 依赖清单(镜像内安装)。
+#
+# 注意: 下面是“下限”约束, 不是精确锁定。若要完全可复现的构建,
+#       在一个验证过能正常工作的环境里执行 `pip freeze` 并把结果替换进来,
+#       把所有 `>=` 改成 `==`。
+#
+# torch 在 Dockerfile 里单独安装(需区分 CPU/GPU), 故不在此列出。
+
+numpy>=1.24
+matplotlib>=3.7
+pandas>=2.0
+pynrrd>=1.0
+requests>=2.28
+scipy>=1.10
+scikit-learn>=1.2
+scikit-image>=0.20
+plotly>=5.14

@@ -1,0 +1,12 @@
+# 版本控制 / CI 元数据(无需进入构建上下文)
+.git
+.gitignore
+.github
+.claude
+
+# 文档
+*.md
+README.md
+
+# 其他
+.DS_Store
